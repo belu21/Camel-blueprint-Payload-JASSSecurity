@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://bo.com.tigo/proxyondemand/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  name="proxyondemand" targetNamespace="http://bo.com.tigo/proxyondemand/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://bo.com.tigo/proxyondemand/">
+      <xsd:element name="Ondemand">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="msisdn" type="xsd:string"/>
+            <xsd:element name="codigo" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="OndemandResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <!--Define input and output parameters -->
+  <wsdl:message name="OndemandRequest">
+    <wsdl:part element="tns:Ondemand" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="OndemandResponse">
+    <wsdl:part element="tns:OndemandResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!--Define port definition -->
+  <wsdl:portType name="proxyondemand">
+    <wsdl:operation name="Ondemand">
+      <wsdl:input message="tns:OndemandRequest"/>
+      <wsdl:output message="tns:OndemandResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <!--Bind Soap operation and service -->
+  <wsdl:binding name="proxyondemandSOAP" type="tns:proxyondemand">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Ondemand">
+      <soap:operation soapAction="http://bo.com.tigo/proxyondemand/Ondemand"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+ <!--Define service -->
+  <wsdl:service name="proxyondemand">
+    <wsdl:port binding="tns:proxyondemandSOAP" name="proxyondemandSOAP">
+      <soap:address location="http://bo.com.tigo/proxyondemand/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

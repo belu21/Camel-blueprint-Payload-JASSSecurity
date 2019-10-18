@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+	xmlns:camel-cxf="http://camel.apache.org/schema/blueprint/cxf"
+	xmlns:cxfcore="http://cxf.apache.org/blueprint/core"
+	xmlns:jaxws="http://cxf.apache.org/blueprint/jaxws"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<camel-cxf:cxfEndpoint id="from_onDemandProxyAPI"
+		endpointName="tns:proxyondemandSOAP" address="/proxyondemand/learn"
+		serviceName="tns:proxyondemand" wsdlURL="/wsdl/test.wsdl"
+		xmlns:tns="http://bo.com.tigo/proxyondemand/">
+		
+		<camel-cxf:inInterceptors>
+			<ref component-id="wss4jInInterceptor" />
+			<ref component-id="authenticationInterceptor"/>
+		</camel-cxf:inInterceptors>
+		<camel-cxf:outInterceptors>
+			<ref component-id="loggingOutInterceptor" />
+		</camel-cxf:outInterceptors>
+		<camel-cxf:properties>
+			<entry key="dataFormat" value="PAYLOAD" />
+			<entry key="ws-security.validate.token" value="false"/>
+		</camel-cxf:properties>
+	</camel-cxf:cxfEndpoint>
+	
+	<bean id="authenticationInterceptor" class="org.apache.cxf.interceptor.security.JAASLoginInterceptor">
+        <property name="contextName" value="karaf"/>
+    </bean>
+	<bean id="loggingOutInterceptor" class="tigo.com.bo.proxyondemand.beans.EnableCORSInterceptor" />
+	
+	
+	<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor" id="wss4jInInterceptor">
+		<argument>
+			<map>
+				<entry key="action" value="UsernameToken"/>
+				<entry key="passwordType" value="PasswordText"/>
+			</map>
+		</argument>
+	</bean>
+
+
+
+	<camelContext id="camelId"
+		xmlns="http://camel.apache.org/schema/blueprint">
+		
+		<route>
+			<from uri="cxf:bean:from_onDemandProxyAPI?dataFormat=PAYLOAD" />
+			<convertBodyTo type="java.lang.String"/>
+			<log message="Body: ${body}"/>
+			<setHeader headerName="msisdn" id="msisdn">
+ 				<xpath>//*[local-name()='msisdn']/text()</xpath> 	 
+			</setHeader>
+			<setHeader headerName="codigo" id="codigo">
+ 				<xpath>//*[local-name()='codigo']/text()</xpath> 
+			</setHeader>
+			<to uri="bean:process" />
+		</route>
+
+	</camelContext>
+		
+	<bean id="process" class="tigo.com.bo.proxyondemand.beans.CamelProcessor" /> 
+
+</blueprint>
+	

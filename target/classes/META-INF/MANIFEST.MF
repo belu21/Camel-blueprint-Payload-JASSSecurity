@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1571166657958
+Build-Jdk: 1.8.0_111
+Built-By: Belen
+Bundle-Blueprint: OSGI-INF/blueprint/applicationContext.xml
+Bundle-ManifestVersion: 2
+Bundle-Name: API mostrar msisdn y codigo
+Bundle-SymbolicName: OnDemandAPI
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: tigo.com.bo.proxyondemand.beans;version="0.0.1";uses:="o
+ rg.apache.camel,org.apache.cxf.interceptor,org.apache.cxf.message,org.a
+ pache.cxf.phase"
+Import-Package: org.osgi.service.blueprint;version="[1.0.0,2.0.0)",org.a
+ pache.cxf.ws.security.wss4j;version="[3.1,4)",org.apache.cxf.intercepto
+ r.security;version="[3.1,4)",org.apache.cxf.transport.http;version="[3.
+ 1,4)",org.apache.cxf.interceptor;version="[3.1,4)",org.apache.cxf.messa
+ ge;version="[3.1,4)",org.apache.cxf.phase;version="[3.1,4)",javax.xml.p
+ arsers,javax.xml.transform,javax.xml.transform.dom,javax.xml.transform.
+ stream,org.apache.camel;version="[2.17,3)",org.slf4j;version="[1.7,2)",
+ org.w3c.dom,javax.jws,javax.xml.bind.annotation,javax.wsdl,io.fabric8.c
+ xf.endpoint,javax.security.auth.callback,io.fabric8.cxf,org.apache.cxf;
+ version="[3.1,4)",org.apache.cxf.endpoint;version="[3.1,4)",org.apache.
+ cxf.frontend;version="[3.1,4)",org.apache.cxf.jaxws;version="[3.1,4)",c
+ om.sun.xml.messaging.saaj.soap,com.sun.xml.messaging.saaj.soap.impl
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.2.0.201605172007

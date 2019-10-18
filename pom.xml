@@ -1,0 +1,229 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>tigo.com.bo.proxyondemand</groupId>
+	<artifactId>SoapExample2</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+
+	<properties>
+		<jboss.fuse.bom.version>6.3.0.redhat-371</jboss.fuse.bom.version>
+		<version.maven-bundle-plugin>3.2.0</version.maven-bundle-plugin>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<fabric8.parentProfiles>feature-camel feature-cxf</fabric8.parentProfiles>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<cxf-version>3.0.2</cxf-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<fabric.version>1.2.0.redhat-630187</fabric.version>
+		<skipTests>true</skipTests>
+		<fabric8.features>cxf-ws-security wss4j camel-jackson camel-cxf
+			fabric-cxf-registry cxf-ws-security fabric-cxf fabric-zookeeper
+			fabric-groups</fabric8.features>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.fuse.bom</groupId>
+				<artifactId>jboss-fuse-parent</artifactId>
+				<version>${jboss.fuse.bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-saxon</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cxf</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jackson</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jaxb</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jvnet.mimepull</groupId>
+			<artifactId>mimepull</artifactId>
+			<version>1.9.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-mybatis</artifactId>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bundles-public-repository</id>
+			<name>FuseSource Community Release Repository Bundles</name>
+			<url>https://mvnrepository.com/artifact</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>fuse-public-repository</id>
+			<name>FuseSource Community Release Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/groups/public</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>red-hat-ga-repository</id>
+			<name>Red Hat GA Repository</name>
+			<url>https://maven.repository.redhat.com/ga</url>
+		</repository>
+		<repository>
+			<id>redhat-early-access-repository</id>
+			<url>https://maven.repository.redhat.com/earlyaccess/all</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>fuse-public-repository</id>
+			<name>FuseSource Community Release Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/groups/public</url>
+		</pluginRepository>
+		<pluginRepository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>red-hat-ga-repository</id>
+			<name>Red Hat GA Repository</name>
+			<url>https://maven.repository.redhat.com/ga</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>redhat-early-access-repository</id>
+			<url>https://maven.repository.redhat.com/earlyaccess/all</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${version.maven-bundle-plugin}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>OnDemandAPI</Bundle-SymbolicName>
+						<Bundle-Name>API mostrar msisdn y codigo</Bundle-Name>
+						<Import-Package>javax.jws,
+							javax.xml.bind.annotation,
+							javax.wsdl,
+							org.osgi.service.blueprint,
+							io.fabric8.cxf.endpoint,
+							org.apache.cxf.ws.security.wss4j,
+							javax.security.auth.callback,
+							org.apache.cxf.interceptor.security,
+							org.apache.cxf.transport.http,
+							io.fabric8.cxf,
+							org.apache.cxf,
+							org.apache.cxf.endpoint, org.apache.cxf.frontend,
+							org.apache.cxf.interceptor,
+							org.apache.cxf.jaxws,
+							org.apache.cxf.message, org.apache.cxf.phase,
+							com.sun.xml.messaging.saaj.soap,
+							com.sun.xml.messaging.saaj.soap.impl,
+							*</Import-Package>
+
+					</instructions>
+				</configuration>
+			</plugin>
+			<!--plugin> <groupId>org.apache.camel</groupId> <artifactId>camel-maven-plugin</artifactId> 
+				</plugin -->
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>fabric8-maven-plugin</artifactId>
+				<version>${fabric.version}</version>
+				<configuration>
+					<!-- <profile>mprofile</profile> <jolokiaUrl>http://127.0.0.1:8181/jolokia/</jolokiaUrl> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>test</id>
+			<build>
+				<defaultGoal>verify</defaultGoal>
+			</build>
+			<properties>
+				<skipTests>false</skipTests>
+			</properties>
+		</profile>
+	</profiles>
+</project>
